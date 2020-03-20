@@ -1,0 +1,25 @@
+{
+  "name": "tdex-specs",
+  "version": "0.0.1",
+  "description": "TDex Specifications for automated trades on the Liquid Network",
+  "scripts": {
+    "serve": "npx gitbook serve",
+    "build": "npx gitbook build",
+    "pdf": "npx gitbook pdf ./ ./_book/tdex-v$npm_package_version.pdf",
+    "deploy": "npx push-dir --dir=_book --branch=gh-pages"
+  },
+  "keywords": [
+    "bitcoin",
+    "liquid",
+    "elements",
+    "dex",
+    "exchange"
+  ],
+  "author": "Seven labs team",
+  "license": "MIT",
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "gitbook-cli": "^2.3.2",
+    "push-dir": "^0.4.1"
+  }
+}

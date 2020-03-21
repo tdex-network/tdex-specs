@@ -6,7 +6,7 @@
     "serve": "npx gitbook serve",
     "build": "npx gitbook build",
     "pdf": "npx gitbook pdf ./ ./_book/tdex-v$npm_package_version.pdf",
-    "deploy": "npx push-dir --dir=_book --branch=gh-pages"
+    "deploy": "npx cpx CNAME _book/ && npx push-dir --dir=_book --branch=gh-pages"
   },
   "keywords": [
     "bitcoin",

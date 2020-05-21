@@ -2,15 +2,15 @@
 
 ## Overview
 
-The **swap protocol** defines the process wich two parties conclude an atomic swap using an interactive exchnage of signed messages and Elements transaction.
+The **swap protocol** defines the process wich two parties conclude an atomic swap using an interactive exchange of signed messages and Elements transaction.
 
 Identifying with *Alice* as the **Proposer** and *Bob* the **Responder**:
 
 1. Alice connects to Bob trough secure transport layer and encrypted connection.
 2. Alice propose a swap crafting an unsigned transaction and a message defined as sending `AMOUNT_P` of `ASSET_P` and receiving `AMOUNT_R` of `ASSET_R`. If confidential, the blinding keys need to be included.
-3. Alice sends to Bob the `SwapRequest` message containing the unsingned transaction.
+3. Alice sends to Bob the `SwapRequest` message containing the unsingned transaction. An additional input and eventual change output needed to pay *half* of the network fees is included by Alice in the transaction.
 4. Bob, if accepts the terms, funds the swap and partially signs the proposed transaction and includes his blinding keys too.
-5. Bob sends back to Alice the `SwapAccept` message containing the partially signed transaction. The network fee input and eventual change output is included by Bob in the transaction.
+5. Bob sends back to Alice the `SwapAccept` message containing the partially signed transaction. An additional input and eventual change output needed to pay the remaining *half* of the network fees is included by Bob in the transaction.
 6. Alice parses the accepted swap and signs the transaction.
 7. Alice sends to Bob the `SwapComplete` message containing the signed transaction.
 8. Ideally Bob finalizes and broadcast the transaction to the Liquid network.

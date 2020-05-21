@@ -17,7 +17,7 @@ Identifying with *Alice* as the **Proposer** and *Bob* the **Responder**:
 
 ## Swap
 
-### Data Strucutres
+### Data Structures
 
 ```protobuf
 syntax = "proto3";

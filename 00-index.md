@@ -10,7 +10,7 @@ describe a protocol that provides an open interface for seamless exchange of [El
 * [BOTD #1: Message Protocol](01-message-protocol.md)
 * [BOTD #2: Peer Protocol](02-peer-protocol.md)
 * [BOTD #3: Swap Protocol](03-swap-protocol.md)
-* BOTD #4: Trade Protocol (Coming soon)
+* [BOTD #4: Trade Protocol](04-trade-protocol.md)
 
 ## Overview 
 

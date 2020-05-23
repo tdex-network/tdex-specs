@@ -21,7 +21,7 @@ A **trader** connects to the provider using the [secure transport defined in the
 
 * **Market**: A single provider putting liquidity into an asset pair forms a market defines as **BASE_ASSET-QUOTE_ASSET**. Multiple markets can co-exist, although this is less beneficial for signaling offers to traders. 
 
-* **Trader**: Proposes new swaps using the provider's market rate. It only needs to support the [swap protocol defined in the BOTD #3](03-swap-protocol.md) and he can swap between the two assets in the **Market** in either direction by adding to the liquidity reserve of one and withdrawing from the reserve of the other. A trader can come and go, he just needs to *speak* the swap Protocol defined in [BOTD #3](03-swap-protocol.md). Traders can either connect directly to a provider if they know the endpoint or use a public reachable **Pool**
+* **Trader**: Proposes new swaps using the provider's market rate. A trader can come and go, he only needs to support the [swap protocol defined in the BOTD #3](03-swap-protocol.md) and he can swap between the two assets in the **Market** in either direction by adding to the liquidity reserve of one and withdrawing from the reserve of the other. Traders can either connect directly to a **provider** if they already know the endpoint.
 
 * **Pool**: Providers can register into a distributed service mesh with other providers pooling together liquidity. This acts as a first responder for traders to lookup for provider's aggregated offers. A provider could run alone OR in a pool, but not both at the same time with the same reserves.
 

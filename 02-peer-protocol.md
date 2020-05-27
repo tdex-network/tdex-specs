@@ -62,39 +62,6 @@ The local peer MUST close the connection if the signature does not validate.
 
 Peers now generate their shared secret by combining their ephemeral private key with the remote peer's ephemeral public key. Further communication MUST be encrypted with aes-256 symmetric encryption.
 
-## Control 
-
-In order to allow for the existence of long-lived TCP connections, at times it may be required that both ends keep alive the TCP connection at the application level. 
-
-
-### Data Structures
-
-```protobuf
-
-message Ping {
-	// random unique indetifier for the current message
-	string id = 1;
-}
-
-message Pong {
-	// random unique indetifier for the current message
-	string id = 1;
-	// indetifier of the Ping message
-	string ping_id = 2;
-}
-
-```
-
-### Ping/Pong
-
-A node sending a ping message:
-* SHOULD NOT send ping messages more often than once every 30 seconds
-* if it doesn't receive a corresponding pong MAY terminate the network connection
-
-A node receiving a ping message:
-* SHOULD close the channel if it receives more than one ping from the same peer in the 30 second window
-	
-
 
 
 

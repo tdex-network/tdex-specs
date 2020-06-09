@@ -69,8 +69,8 @@ message MarketWithFee {
   float fee = 2;
 }
 message Balance {
-  string asset = 1;
-  int64 amount = 2;
+  int64 base_amount = 1;
+  int64 quote_amount = 2;
 }
 message BalanceWithFee {
   Balance balance = 1;
@@ -84,6 +84,7 @@ message PriceWithFee {
   Price price = 1;
   float fee = 2;
 }
+
 ```
 
 * Messages 

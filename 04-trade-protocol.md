@@ -57,25 +57,69 @@ service Trade {
 }
 ```
 
-* Messages
-
-TBD
+* Custom Types 
 
 ```protobuf
-// This came from BOTD #3 Swap Protocol
+message Market {
+  string base_asset = 1;
+  string quote_asset = 2;
+}
+message MarketWithFee {
+  Market market = 1;
+  float fee = 2;
+}
+message Balance {
+  string asset = 1;
+  int64 amount = 2;
+}
+message BalanceWithFee {
+  Balance balance = 1;
+  float fee = 2;
+}
+message Price {
+  float base_price = 1;
+  float quote_price = 2;
+}
+message PriceWithFee {
+  Price price = 1;
+  float fee = 2;
+}
+```
+
+* Messages 
+```protobuf
+// Messages from BOTD #3 Swap Protocol
 import "swap.proto";
 
 message MarketsRequest {}
-message MarketsReply {}
+message MarketsReply { repeated MarketWithFee markets = 1; }
 
-message MarketPriceRequest {}
-message MarketPriceReply {}
+message BalancesRequest { Market market = 1; }
+message BalancesReply { repeated BalanceWithFee balances = 1; }
 
-message TradeProposeRequest {}
-message TradeProposeReply {}
+message MarketPriceRequest { Market market = 1; }
+message MarketPriceReply { repeated PriceWithFee prices = 1; }
 
-message TradeCompleteRequest {}
-message TradeCompleteReply {}
+message TradeProposeRequest {
+  Market market = 1;
+  enum Type {
+    BUY = 0;
+    SELL = 1;
+  }
+  Type type = 2;
+  SwapRequest swap_request = 3;
+}
+message TradeProposeReply {
+  SwapAccept swap_accept = 1;
+  SwapFail swap_fail = 2;
+}
+
+message TradeCompleteRequest {
+  SwapComplete swap_complete = 1;
+  SwapFail swap_fail = 2;
+}
+message TradeCompleteReply { string txid = 1; }
+
 ```
 
 

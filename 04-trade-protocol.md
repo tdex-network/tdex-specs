@@ -88,6 +88,7 @@ message PriceWithFee {
 ```
 
 * Messages 
+
 ```protobuf
 // Messages from BOTD #3 Swap Protocol
 import "swap.proto";

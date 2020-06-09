@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    "insert-logo"
+  ],
+  "pluginsConfig": {
+    "insert-logo": {
+      "url": "/logo.jpeg",
+      "style": "background: none; height:64px"
+    }
+  }
+}

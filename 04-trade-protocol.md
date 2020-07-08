@@ -114,6 +114,7 @@ message TradeProposeRequest {
 message TradeProposeReply {
   SwapAccept swap_accept = 1;
   SwapFail swap_fail = 2;
+  uint64 expiry_time_unix = 3;
 }
 
 message TradeCompleteRequest {

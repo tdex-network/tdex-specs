@@ -15,7 +15,13 @@
     "dex",
     "exchange"
   ],
-  "author": "Seven labs team",
+  "contributors": [
+    {
+      "name": "Marco Argentieri",
+      "email": "marco@vulpem.com",
+      "url": "https://vulpem.com"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "cpx": "^1.5.0",

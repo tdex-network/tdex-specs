@@ -1,6 +1,6 @@
 {
   "name": "tdex-specs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "TDex Specifications for automated trades on the Liquid Network",
   "scripts": {
     "serve": "npx gitbook serve",

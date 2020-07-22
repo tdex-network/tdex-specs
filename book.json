@@ -4,8 +4,11 @@
   ],
   "pluginsConfig": {
     "insert-logo": {
-      "url": "/logo.jpeg",
+      "url": "./tdex-logo.png",
       "style": "background: none; height:64px"
     }
+  },
+  "styles": {
+    "website": "./styles/website.css"
   }
 }

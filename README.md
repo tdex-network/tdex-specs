@@ -1,6 +1,6 @@
 # TDEX Specifications
 
-![TDEX LOGO](https://raw.githubusercontent.com/Sevenlab/tdex-specs/master/logo.jpeg "Tdex Logo")
+![TDEX LOGO](./tdex-logo-gray.jpeg "Tdex Logo")
 
 The specifications are a work-in-progress and currently being drafted.
 

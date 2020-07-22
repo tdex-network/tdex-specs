@@ -1,0 +1,35 @@
+.book-summary {
+  color: #ccc;
+  background: #1e1e1e;
+}
+
+.book-summary ul.summary li.header {
+  color: #0fff00;
+  font-weight: bold
+}
+
+.book-summary ul.summary li a, .book-summary ul.summary li span {
+  color: #adadad;
+}
+
+.book-summary ul.summary li a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.book-summary ul.summary li.active>a {
+  color: #fff;
+  border-bottom: solid 2px #0fff00;
+}
+
+.book-summary ul.summary li span {
+  color: #666;
+}
+
+#book-search-input {
+  background: transparent;
+}
+
+#book-search-input input, #book-search-input input:hover {
+  background: #111;
+}

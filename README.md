@@ -1,6 +1,6 @@
 # TDEX Specifications
 
-![TDEX LOGO](./tdex-logo-gray.jpeg "Tdex Logo")
+![TDEX LOGO](./Screenshot%202020-07-27%20at%2012.42.50.png "Tdex Logo")
 
 The specifications are a work-in-progress and currently being drafted.
 

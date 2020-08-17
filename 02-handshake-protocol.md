@@ -1,4 +1,4 @@
-# BOTD #2: Peer Protocol
+# BOTD #2: Handshake Protocol
 
 
 ## Overview 
@@ -6,10 +6,6 @@
 All communications between two parties are encrypted in order to provide confidentiality for all transcripts and is authenticated in order to avoid malicious interference. Each node has a known long-term identifier that is a public key on Bitcoin's secp256k1 curve. This long-term public key is used within the protocol to establish an encrypted and authenticated connection with peers, and also to authenticate any information advertised on behalf of a node.
 
 An initial handshake is required to establish a secure TCP-based session between two nodes. The default listening TCP port is **9945** 
-
-
-
-## Handshake
 
 Prior to undertaking the handshake it is assumed that we have already established a dedicated bidirectional channel between both parties. Both peers generate an ephemeral keypair using the secp256 elliptic curve algorithm.
 

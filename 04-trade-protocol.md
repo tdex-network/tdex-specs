@@ -13,7 +13,7 @@ The **market makers** provide always-on endpoints and put liquidity in various a
 
 Anyone can become a **liquidity provider** and contribute with reserves in a non-custodial manner running an always-on endpoint to process trading requests. This is different than buying or selling; it requires depositing an equivalent value of both base and quote assets and select an automated market making strategy. 
 
-A **trader** connects to the provider using the [secure transport defined in the BOTD #2](02-peer-protocol.md), fetches the current *market price* defined by the provider's strategy and makes an atomic swap using the [swap protocol defined in the BOTD #3](03-swap-protocol.md). Limit orders could be supported as well, delaying the time of execution of the swap proposal in the future.
+A **trader** connects to the provider using the [secure transport defined in the BOTD #2](02-handshake-protocol.md), fetches the current *market price* defined by the provider's strategy and makes an atomic swap using the [swap protocol defined in the BOTD #3](03-swap-protocol.md). Limit orders could be supported as well, delaying the time of execution of the swap proposal in the future.
 
 ## Glossary 
 

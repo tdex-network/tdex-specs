@@ -33,7 +33,7 @@ message SwapRequest {
   uint64 amount_r = 4;
   // The responder's asset hash
   string asset_r = 5;
-  // The proposer's unsigned transaction in PSBT format (base64 string)
+  // The proposer's unsigned transaction in PSET format (base64 string)
   string transaction = 6;
   // In case of a confidential transaction the blinding key of each confidential
   // input is included. Each blinding key is identified by the prevout script
@@ -51,7 +51,7 @@ message SwapAccept {
   // indetifier of the SwapRequest message
   string request_id = 2;
   // The partial signed transaction base64 encoded containing the Responder's
-  // signed inputs in a PSBT format
+  // signed inputs in a PSET format
   string transaction = 3;
   // In case of a confidential transaction the blinding key of each confidential
   // input is included. Each blinding key is identified by the prevout script
@@ -69,7 +69,7 @@ message SwapComplete {
   // indetifier of the SwapAccept message
   string accept_id = 2;
   // The signed transaction base64 encoded containing the Proposers's signed
-  // inputs in a PSBT format
+  // inputs in a PSET format
   string transaction = 3;
 }
 
@@ -87,7 +87,7 @@ message SwapFail {
 
 ### SwapRequest 
 
-The `SwapRequest` message is sent by the **Proposer** to the **Responder** to start the swap negotiation. The transaction is as psbt base64 encoded string containing the Proposer's inputs and outputs (amount_r and eventual change).
+The `SwapRequest` message is sent by the **Proposer** to the **Responder** to start the swap negotiation. The transaction is as PSET base64 encoded string containing the Proposer's inputs and outputs (amount_r and eventual change).
 
 ### SwapAccept 
 

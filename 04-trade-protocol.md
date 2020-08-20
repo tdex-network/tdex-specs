@@ -57,36 +57,6 @@ service Trade {
 }
 ```
 
-* Custom Types 
-
-```protobuf
-message Market {
-  string base_asset = 1;
-  string quote_asset = 2;
-}
-message MarketWithFee {
-  Market market = 1;
-  float fee = 2;
-}
-message Balance {
-  int64 base_amount = 1;
-  int64 quote_amount = 2;
-}
-message BalanceWithFee {
-  Balance balance = 1;
-  float fee = 2;
-}
-message Price {
-  float base_price = 1;
-  float quote_price = 2;
-}
-message PriceWithFee {
-  Price price = 1;
-  float fee = 2;
-}
-
-```
-
 * Messages 
 
 ```protobuf
@@ -125,6 +95,31 @@ message TradeCompleteReply { string txid = 1; }
 
 ```
 
+* Custom Types 
 
-
-
+```protobuf
+message Balance {
+  int64 base_amount = 1;
+  int64 quote_amount = 2;
+}
+message BalanceWithFee {
+  Balance balance = 1;
+  int64 fee = 2;
+}
+message Market {
+  string base_asset = 1;
+  string quote_asset = 2;
+}
+message MarketWithFee {
+  Market market = 1;
+  int64 fee = 2;
+}
+message Price {
+  float base_price = 1;
+  float quote_price = 2;
+}
+message PriceWithFee {
+  Price price = 1;
+  int64 fee = 2;
+}
+```

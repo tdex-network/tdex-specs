@@ -15,20 +15,6 @@ Anyone can become a **liquidity provider** and contribute with reserves in a non
 
 A **trader** connects to the provider using the [secure transport defined in the BOTD #2](02-handshake-protocol.md), fetches the current *market price* defined by the provider's strategy and makes an atomic swap using the [swap protocol defined in the BOTD #3](03-swap-protocol.md). Limit orders could be supported as well, delaying the time of execution of the swap proposal in the future.
 
-## Glossary 
-
-* **Liquidity Provider**: Holds reserves of pegged Bitcoin (eg. L-BTC) and an associated Elements asset in his non-custodial wallet, running automated market-making strategies both with or without an oracle. Providers are incentivized to be always on and need to expose a public reachable endpoint either via clearnet or using a [Onion hidden service](https://2019.www.torproject.org/docs/tor-onion-service.html)
-
-* **Market**: A single provider putting liquidity into an asset pair forms a market defines as **BASE_ASSET-QUOTE_ASSET**. Multiple markets can co-exist, although this is less beneficial for signaling offers to traders. 
-
-* **Trader**: Proposes new swaps using the provider's market rate. A trader can come and go, he only needs to support the [swap protocol defined in the BOTD #3](03-swap-protocol.md) and he can swap between the two assets in the **Market** in either direction by adding to the liquidity reserve of one and withdrawing from the reserve of the other. Traders can either connect directly to a **provider** if they already know the endpoint.
-
-* **Pool**: Providers can register into a distributed service mesh with other providers pooling together liquidity. This acts as a first responder for traders to lookup for provider's aggregated offers. A provider could run alone OR in a pool, but not both at the same time with the same reserves.
-
-* **Liquidity fee**: A small liquidity provider fee can be taken out of each trade and added to the reserves, besides the chain fee. While the *BASE_ASSET-QUOTE_ASSET* reserve ratio is constantly shifting, fees make sure that the total combined reserve size increases with every trade.
-Guaranteed arbitrage opportunities from price fluctuations should push a steady flow of transactions through the system and increase the amount of fee revenue generated.
-
-* **Automated Market Making**: A liquidity provider has full control over the market making strategy to apply needed to calculate the **market rate** at which to accept trades. That being said, there is a possibility to apply an automated market-making relying only on the reserves balances and the amount requested by the trader, without the need to connect to an external price feed. One of the most famous algorithms is called *constant product market-making*. In short, this model generates a full order-book based on an initial price for the market. Every transaction that occurs on this market will adjust the prices of the market accordingly. It's a basic supply and demand automated market making system. 
 
 ## Trade
 
@@ -60,25 +46,22 @@ service Trade {
 * Messages 
 
 ```protobuf
-// Messages from BOTD #3 Swap Protocol
-import "swap.proto";
-
 message MarketsRequest {}
 message MarketsReply { repeated MarketWithFee markets = 1; }
 
 message BalancesRequest { Market market = 1; }
 message BalancesReply { repeated BalanceWithFee balances = 1; }
 
-message MarketPriceRequest { Market market = 1; }
+message MarketPriceRequest {
+  Market market = 1;
+  TradeType type = 2;
+  uint64 base_amount = 3;
+}
 message MarketPriceReply { repeated PriceWithFee prices = 1; }
 
 message TradeProposeRequest {
   Market market = 1;
-  enum Type {
-    BUY = 0;
-    SELL = 1;
-  }
-  Type type = 2;
+  TradeType type = 2;
   SwapRequest swap_request = 3;
 }
 message TradeProposeReply {
@@ -92,19 +75,26 @@ message TradeCompleteRequest {
   SwapFail swap_fail = 2;
 }
 message TradeCompleteReply { string txid = 1; }
-
 ```
 
 * Custom Types 
 
 ```protobuf
+enum TradeType {
+  BUY = 0;
+  SELL = 1;
+}
+message Fee {
+  string asset = 1;
+  int64 basis_point = 2;
+}
 message Balance {
   int64 base_amount = 1;
   int64 quote_amount = 2;
 }
 message BalanceWithFee {
   Balance balance = 1;
-  int64 fee = 2;
+  Fee fee = 2;
 }
 message Market {
   string base_asset = 1;
@@ -112,7 +102,7 @@ message Market {
 }
 message MarketWithFee {
   Market market = 1;
-  int64 fee = 2;
+  Fee fee = 2;
 }
 message Price {
   float base_price = 1;
@@ -120,6 +110,22 @@ message Price {
 }
 message PriceWithFee {
   Price price = 1;
-  int64 fee = 2;
+  Fee fee = 2;
 }
 ```
+
+
+## Glossary 
+
+* **Liquidity Provider**: Holds reserves of pegged Bitcoin (eg. L-BTC) and an associated Elements asset in his non-custodial wallet, running automated market-making strategies both with or without an oracle. Providers are incentivized to be always on and need to expose a public reachable endpoint either via clearnet or using a [Onion hidden service](https://2019.www.torproject.org/docs/tor-onion-service.html)
+
+* **Market**: A single provider putting liquidity into an asset pair forms a market defines as **BASE_ASSET-QUOTE_ASSET**. Multiple markets can co-exist, although this is less beneficial for signaling offers to traders. 
+
+* **Trader**: Proposes new swaps using the provider's market rate. A trader can come and go, he only needs to support the [swap protocol defined in the BOTD #3](03-swap-protocol.md) and he can swap between the two assets in the **Market** in either direction by adding to the liquidity reserve of one and withdrawing from the reserve of the other. Traders can either connect directly to a **provider** if they already know the endpoint.
+
+* **Pool**: Providers can register into a distributed service mesh with other providers pooling together liquidity. This acts as a first responder for traders to lookup for provider's aggregated offers. A provider could run alone OR in a pool, but not both at the same time with the same reserves.
+
+* **Liquidity fee**: A small liquidity provider fee can be taken out of each trade and added to the reserves, besides the chain fee. While the *BASE_ASSET-QUOTE_ASSET* reserve ratio is constantly shifting, fees make sure that the total combined reserve size increases with every trade.
+Guaranteed arbitrage opportunities from price fluctuations should push a steady flow of transactions through the system and increase the amount of fee revenue generated.
+
+* **Automated Market Making**: A liquidity provider has full control over the market making strategy to apply needed to calculate the **market rate** at which to accept trades. That being said, there is a possibility to apply an automated market-making relying only on the reserves balances and the amount requested by the trader, without the need to connect to an external price feed. One of the most famous algorithms is called *constant product market-making*. In short, this model generates a full order-book based on an initial price for the market. Every transaction that occurs on this market will adjust the prices of the market accordingly. It's a basic supply and demand automated market making system. 

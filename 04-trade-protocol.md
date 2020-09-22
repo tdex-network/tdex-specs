@@ -55,7 +55,7 @@ message BalancesReply { repeated BalanceWithFee balances = 1; }
 message MarketPriceRequest {
   Market market = 1;
   TradeType type = 2;
-  uint64 base_amount = 3;
+  uint64 amount = 3;
 }
 message MarketPriceReply { repeated PriceWithFee prices = 1; }
 

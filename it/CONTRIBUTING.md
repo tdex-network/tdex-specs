@@ -6,7 +6,7 @@ Questo file definisce le linee guida e il flusso di lavoro da seguire per contri
 
 La specifica dovrebbe essere leggibile sia in formato [Markdown](https://en.wikipedia.org/wiki/Markdown) che in testo normale.
 
-Some requirements are obvious, some are subtle. They're designed to walk an implementer through the code they have to write, so write them as YOU develop YOUR implementation. Stick with MUST/SHOULD/MAY and NOT: see [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt)
+Alcuni requisiti sono evidenti, altri meno. Sono progettati per guidare un implementatore attraverso il codice che devono scrivere, quindi scrivili mentre TU sviluppi la TUA implementazione. Attenersi a MUST / SHOULD / MAY e NOT: vedere [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt)
 
 ## Estendi i messaggi
 

@@ -16,7 +16,7 @@ Each *peer* MUST decides and MUST anounces which transport protocol wants to use
 * Onion service `onion`
 * Server-side TLS `TLS`
 * Mutual TLS `mTLS`
-* Noise Protocol XK `noise`
+* Noise_XK_secp256k1_ChaChaPoly_SHA256 `noise`
 
 
 Each peer SHOULD be reachable on the default TCP port **9945** and, if so, MUST expose then a plaintext HTTP/2 endpoint that announces the chosen transports responding with an `AvailableTransport` protobuf message, setting the response as `ContentType` as `application/protobuf`

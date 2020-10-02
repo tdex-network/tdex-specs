@@ -9,7 +9,7 @@ All communications between two *peers* SHOULD be encrypted in order to provide c
 
 ### Transport announcement
 
-Each *peer* MUST decides and MUST anounces which transport protocol wants to use for the connection, one or more combined between:
+Each *peer* MUST decide and MUST announce which transport protocol wants to use for the connection, one or more combined between:
 
 
 * Clear text `insecure`

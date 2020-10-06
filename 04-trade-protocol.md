@@ -111,6 +111,7 @@ message Price {
 message PriceWithFee {
   Price price = 1;
   Fee fee = 2;
+  uint64 amount = 3;
 }
 ```
 

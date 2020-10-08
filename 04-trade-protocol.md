@@ -74,7 +74,10 @@ message TradeCompleteRequest {
   SwapComplete swap_complete = 1;
   SwapFail swap_fail = 2;
 }
-message TradeCompleteReply { string txid = 1; }
+message TradeCompleteReply {
+  string txid = 1;
+  SwapFail swap_fail = 2;
+}
 ```
 
 * Custom Types 

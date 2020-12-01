@@ -56,6 +56,7 @@ message MarketPriceRequest {
   Market market = 1;
   TradeType type = 2;
   uint64 amount = 3;
+  string asset = 4;
 }
 message MarketPriceReply { repeated PriceWithFee prices = 1; }
 
@@ -115,6 +116,7 @@ message PriceWithFee {
   Price price = 1;
   Fee fee = 2;
   uint64 amount = 3;
+  string asset = 4;
 }
 ```
 

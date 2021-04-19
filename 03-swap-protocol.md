@@ -2,12 +2,12 @@
 
 ## Overview
 
-The **swap protocol** defines the process wich two parties conclude an atomic swap using an interactive exchange of signed messages and Elements transaction.
+The **swap protocol** defines the process by which two parties conclude an atomic swap using an interactive exchange of signed messages and Elements transaction.
 
 Identifying with *Alice* as the **Proposer** and *Bob* the **Responder**:
 
-1. Alice connects to Bob trough secure transport layer and encrypted connection.
-2. Alice propose a swap crafting an unsigned transaction and a message defined as sending `AMOUNT_P` of `ASSET_P` and receiving `AMOUNT_R` of `ASSET_R`. If confidential, the blinding keys need to be included.
+1. Alice connects to Bob through secure transport layer and encrypted connection.
+2. Alice proposes a swap crafting an unsigned transaction and a message defined as sending `AMOUNT_P` of `ASSET_P` and receiving `AMOUNT_R` of `ASSET_R`. If confidential, the blinding keys need to be included.
 3. Alice sends to Bob the `SwapRequest` message containing the unsingned transaction. An additional input and eventual change output needed to pay *half* of the network fees is included by Alice in the transaction.
 4. Bob, if accepts the terms, funds the swap and partially signs the proposed transaction and includes his blinding keys too.
 5. Bob sends back to Alice the `SwapAccept` message containing the partially signed transaction. An additional input and eventual change output needed to pay the remaining *half* of the network fees is included by Bob in the transaction.
@@ -87,7 +87,7 @@ message SwapFail {
 
 ### SwapRequest 
 
-The `SwapRequest` message is sent by the **Proposer** to the **Responder** to start the swap negotiation. The transaction is as PSET base64 encoded string containing the Proposer's inputs and outputs (amount_r and eventual change).
+The `SwapRequest` message is sent by the **Proposer** to the **Responder** to start the swap negotiation. The transaction is a PSET base64 encoded string containing the Proposer's inputs and outputs (amount_r and eventual change).
 
 ### SwapAccept 
 

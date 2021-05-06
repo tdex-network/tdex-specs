@@ -89,8 +89,12 @@ enum TradeType {
   SELL = 1;
 }
 message Fee {
-  string asset = 1;
-  int64 basis_point = 2;
+  int64 basis_point = 1;
+  Fixed fixed = 2;
+}
+message Fixed {
+  int64 base_fee = 1;
+  int64 quote_fee = 2;
 }
 message Balance {
   int64 base_amount = 1;

@@ -89,12 +89,16 @@ enum TradeType {
   SELL = 1;
 }
 message Fee {
-  string asset = 1;
-  int64 basis_point = 2;
+  int64 basis_point = 1;
+  Fixed fixed = 2;
+}
+message Fixed {
+  int64 base_fee = 1;
+  int64 quote_fee = 2;
 }
 message Balance {
-  int64 base_amount = 1;
-  int64 quote_amount = 2;
+  uint64 base_amount = 1;
+  uint64 quote_amount = 2;
 }
 message BalanceWithFee {
   Balance balance = 1;
@@ -117,6 +121,7 @@ message PriceWithFee {
   Fee fee = 2;
   uint64 amount = 3;
   string asset = 4;
+  Balance balance = 5;
 }
 ```
 
@@ -131,7 +136,7 @@ message PriceWithFee {
 
 * **Pool**: Providers can register into a distributed service mesh with other providers pooling together liquidity. This acts as a first responder for traders to lookup for provider's aggregated offers. A provider could run alone OR in a pool, but not both at the same time with the same reserves.
 
-* **Liquidity fee**: A small liquidity provider fee can be taken out of each trade and added to the reserves, besides the chain fee. While the *BASE_ASSET-QUOTE_ASSET* reserve ratio is constantly shifting, fees make sure that the total combined reserve size increases with every trade.
+* **Swap fee**: A small percentage of the amount of the trade can be taken out by the provider and added to the reserves, besides the network fees. Since the provider is conveniently in charge of paying network fees, and also to discourage low-amount trades, he could also charge an additional fixed fee amount to the trade to be partially reimbursed for this expense. While the *BASE_ASSET-QUOTE_ASSET* reserve ratio is constantly shifting, fees make sure that the total combined reserve size increases with every trade.
 Guaranteed arbitrage opportunities from price fluctuations should push a steady flow of transactions through the system and increase the amount of fee revenue generated.
 
 * **Automated Market Making**: A liquidity provider has full control over the market making strategy to apply needed to calculate the **market rate** at which to accept trades. That being said, there is a possibility to apply an automated market-making relying only on the reserves balances and the amount requested by the trader, without the need to connect to an external price feed. One of the most famous algorithms is called *constant product market-making*. In short, this model generates a full order-book based on an initial price for the market. Every transaction that occurs on this market will adjust the prices of the market accordingly. It's a basic supply and demand automated market making system. 

@@ -97,8 +97,8 @@ message Fixed {
   int64 quote_fee = 2;
 }
 message Balance {
-  int64 base_amount = 1;
-  int64 quote_amount = 2;
+  uint64 base_amount = 1;
+  uint64 quote_amount = 2;
 }
 message BalanceWithFee {
   Balance balance = 1;

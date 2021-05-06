@@ -121,6 +121,7 @@ message PriceWithFee {
   Fee fee = 2;
   uint64 amount = 3;
   string asset = 4;
+  Balance balance = 5;
 }
 ```
 

@@ -38,8 +38,8 @@ service Trade {
   rpc Markets(MarketsRequest) returns (MarketsReply);
   rpc Balances(BalancesRequest) returns (BalancesReply);
   rpc MarketPrice(MarketPriceRequest) returns (MarketPriceReply);
-  rpc TradePropose(TradeProposeRequest) returns (stream TradeProposeReply);
-  rpc TradeComplete(TradeCompleteRequest) returns (stream TradeCompleteReply);
+  rpc TradePropose(TradeProposeRequest) returns (TradeProposeReply);
+  rpc TradeComplete(TradeCompleteRequest) returns (TradeCompleteReply);
 }
 ```
 

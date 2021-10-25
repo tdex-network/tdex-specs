@@ -40,6 +40,8 @@ service Trade {
   rpc MarketPrice(MarketPriceRequest) returns (MarketPriceReply);
   rpc TradePropose(TradeProposeRequest) returns (stream TradeProposeReply);
   rpc TradeComplete(TradeCompleteRequest) returns (stream TradeCompleteReply);
+  rpc ProposeTrade(ProposeTradeRequest) returns (ProposeTradeReply);
+  rpc TradeComplete(TradeCompleteRequest) returns (CompleteTradeReply);
 }
 ```
 
@@ -76,6 +78,26 @@ message TradeCompleteRequest {
   SwapFail swap_fail = 2;
 }
 message TradeCompleteReply {
+  string txid = 1;
+  SwapFail swap_fail = 2;
+}
+
+message ProposeTradeRequest {
+  Market market = 1;
+  TradeType type = 2;
+  SwapRequest swap_request = 3;
+}
+message ProposeTradeReply {
+  SwapAccept swap_accept = 1;
+  SwapFail swap_fail = 2;
+  uint64 expiry_time_unix = 3;
+}
+
+message CompleteTradeRequest {
+  SwapComplete swap_complete = 1;
+  SwapFail swap_fail = 2;
+}
+message CompleteTradeReply {
   string txid = 1;
   SwapFail swap_fail = 2;
 }

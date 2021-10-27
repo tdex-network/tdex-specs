@@ -41,7 +41,7 @@ service Trade {
   rpc TradePropose(TradeProposeRequest) returns (stream TradeProposeReply);
   rpc TradeComplete(TradeCompleteRequest) returns (stream TradeCompleteReply);
   rpc ProposeTrade(ProposeTradeRequest) returns (ProposeTradeReply);
-  rpc TradeComplete(TradeCompleteRequest) returns (CompleteTradeReply);
+  rpc CompleteTrade(CompleteTradeRequest) returns (CompleteTradeReply);
 }
 ```
 

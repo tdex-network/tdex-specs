@@ -45,7 +45,8 @@ service Trade {
   }
   rpc Balances(BalancesRequest) returns (BalancesReply) {
     option (google.api.http) = {
-      get: "/v1/market/{base_asset}/{quote_asset}/balance"
+      post: "/v1/market/balance"
+      body: "*"
     };
   }
   rpc MarketPrice(MarketPriceRequest) returns (MarketPriceReply) {

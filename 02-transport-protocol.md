@@ -5,14 +5,6 @@
 
 All communications between two *peers* SHOULD be encrypted in order to provide confidentiality for all transcripts and authenticated in order to avoid malicious interference.
 
-Following are examples of transport protocols for encrypted connection:
-
-* Clear text `insecure` (no encryption)
-* Onion service `onion`
-* Server-side TLS `TLS`
-* Mutual TLS `mTLS`
-* Noise_XK_secp256k1_ChaChaPoly_SHA256 `noise`
-
 The type of transport used by a peer can be easily determined by the canonical URL it can be reached at (ie. http -> insecure, https -> TLS/mTLS, .onion -> onion).
 
 ### Message type announcement

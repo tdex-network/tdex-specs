@@ -3,52 +3,57 @@
 
 ## Overview
 
-All communications between two *peers* SHOULD be encrypted in order to provide confidentiality for all transcripts and is authenticated in order to avoid malicious interference. 
+All communications between two *peers* SHOULD be encrypted in order to provide confidentiality for all transcripts and authenticated in order to avoid malicious interference.
 
+Following are examples of transport protocols for encrypted connection:
 
-
-### Transport announcement
-
-Each *peer* MUST decide and MUST announce which transport protocol wants to use for the connection, one or more combined between:
-
-
-* Clear text `insecure`
+* Clear text `insecure` (no encryption)
 * Onion service `onion`
 * Server-side TLS `TLS`
 * Mutual TLS `mTLS`
 * Noise_XK_secp256k1_ChaChaPoly_SHA256 `noise`
 
+The type of transport used by a peer can be easily determined by the canonical URL it can be reached at (ie. http -> insecure, https -> TLS/mTLS, .onion -> onion).
 
-Each peer SHOULD be reachable on the default TCP port **9945** and, if so, MUST expose then a plaintext HTTP/2 endpoint that announces the chosen transports responding with an `AvailableTransport` protobuf message, setting the response `ContentType` as `application/protobuf`
+### Message type announcement
+
+Liquidity providers MUST decide and announce the accepted content type for incoming HTTP request messages.
+
+Peers connecting to liquidity providers should ask for the accepted content types and use one of them to prevent using a non supported one.
+
+A liquidity provider can accept requests of different content types but **MUST** support at least `application/json`.
 
 
 #### Data Structures
 
-```protobuf
-syntax = "proto3";
+* Service interface
+	```protobuf
+	syntax = "proto3";
+	import "google/api/annotations.proto";
 
-enum TransportType {
-	INSECURE = 0;
-	ONION = 1;
-	TLS = 2;
-	MTLS = 3;
-	NOISE = 4;
-}
+	service Transport {
+		rpc SupportedContentTypes(SupportedContentTypesRequest) returns (SupportedContentTypesReply) {
+			option (google.api.http) = {
+				get: "/v1/supported_types"
+			};
+		}
+	}
+	```
 
-message Transport {
-	TransportType type = 1;
-	string name = 2;
-	bytes data = 3;
-}
+* Messages
+  ```protobuf
+	enum ContentType {
+		JSON = 0;
+		GRPC = 1;
+		GRPCWEB = 2;
+		GRPCWEBTEXT = 3;
+	}
 
-message AvailableTransport {
-	repeated TransportType transport = 1;
-}
-
-```
-
-Each `Transport` has an optional `data` field that can be used to return additional metadata. Eg. A static public key in case of `noise` or a self-signed TLS certificate in case of `mTLS`
-
+	message SupportedContentTypesRequest {}
+	message SupportedContentTypesReply {
+		repeated ContentType accepted_types = 1;
+	}
+	```
 
 
 

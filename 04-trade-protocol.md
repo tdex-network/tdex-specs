@@ -34,14 +34,40 @@ A **trader** connects to the provider using the [secure transport defined in the
 * Service Interface
 
 ```protobuf
+syntax = "proto3";
+import "google/api/annotations.proto";
+
 service Trade {
-  rpc Markets(MarketsRequest) returns (MarketsReply);
-  rpc Balances(BalancesRequest) returns (BalancesReply);
-  rpc MarketPrice(MarketPriceRequest) returns (MarketPriceReply);
+  rpc Markets(MarketsRequest) returns (MarketsReply) {
+    option (google.api.http) = {
+      get: "/v1/markets"
+    };
+  }
+  rpc Balances(BalancesRequest) returns (BalancesReply) {
+    option (google.api.http) = {
+      get: "/v1/market/{base_asset}/{quote_asset}/balance"
+    };
+  }
+  rpc MarketPrice(MarketPriceRequest) returns (MarketPriceReply) {
+    option (google.api.http) = {
+      post: "/v1/market/price"
+      body: "*"
+    };
+  }
   rpc TradePropose(TradeProposeRequest) returns (stream TradeProposeReply);
   rpc TradeComplete(TradeCompleteRequest) returns (stream TradeCompleteReply);
-  rpc ProposeTrade(ProposeTradeRequest) returns (ProposeTradeReply);
-  rpc CompleteTrade(CompleteTradeRequest) returns (CompleteTradeReply);
+  rpc ProposeTrade(ProposeTradeRequest) returns (ProposeTradeReply) {
+    option (google.api.http) = {
+      post: "/v1/trade/propose"
+      body: "*"
+    };
+  }
+  rpc CompleteTrade(CompleteTradeRequest) returns (CompleteTradeReply) {
+    option (google.api.http) = {
+      post: "/v1/trade/complete"
+      body: "*"
+    };
+  }
 }
 ```
 

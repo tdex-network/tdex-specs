@@ -7,10 +7,11 @@ The **swap protocol** defines the process by which two parties conclude an atomi
 Identifying with *Alice* as the **Proposer** and *Bob* the **Responder**:
 
 1. Alice connects to Bob through secure transport layer and encrypted connection.
-2. Alice proposes a swap crafting an unsigned transaction and a message defined as sending `AMOUNT_P` of `ASSET_P` and receiving `AMOUNT_R` of `ASSET_R`. If confidential, the blinding keys need to be included.
-3. Alice sends to Bob the `SwapRequest` message containing the unsingned transaction. An additional input and eventual change output needed to pay *half* of the network fees is included by Alice in the transaction.
-4. Bob, if accepts the terms, funds the swap and partially signs the proposed transaction and includes his blinding keys too.
-5. Bob sends back to Alice the `SwapAccept` message containing the partially signed transaction. An additional input and eventual change output needed to pay the remaining *half* of the network fees is included by Bob in the transaction.
+2. Alice proposes a swap crafting an unsigned transaction and a message defined as sending `AMOUNT_P` of `ASSET_P` and receiving `AMOUNT_R` of `ASSET_R`.  An additional input and eventual change output needed to pay the network fees is included by Alice in the transaction.
+Alice can also blind her outputs (acting as non-last blinder) according to the new [Elements Partial Transaction v2](https://github.com/ElementsProject/elements/blob/master/doc/pset.mediawiki).
+3. Alice sends to Bob the `SwapRequest` message containing the unsingned transaction.
+4. Bob, if accepts the terms, funds the swap. An additional input and eventual change output needed to pay the remaining *half* of the network fees is included by Bob in the transaction.Bob can blind his outputs (acting as last blinder) according to the [PSETv2 specification](https://github.com/ElementsProject/elements/blob/master/doc/pset.mediawiki), and partially signs the proposed transaction.
+5. Bob sends back to Alice the `SwapAccept` message containing the parially signed transaction. 
 6. Alice parses the accepted swap and signs the transaction.
 7. Alice sends to Bob the `SwapComplete` message containing the signed transaction.
 8. Ideally Bob finalizes and broadcast the transaction to the Liquid network.
@@ -35,14 +36,6 @@ message SwapRequest {
   string asset_r = 5;
   // The proposer's unsigned transaction in PSET format (base64 string)
   string transaction = 6;
-  // In case of a confidential transaction the blinding key of each confidential
-  // input is included. Each blinding key is identified by the prevout script
-  // hex encoded.
-  map<string, bytes> input_blinding_key = 7;
-  // In case of a confidential transaction the blinding key of each confidential
-  // output is included. Each blinding key is identified by the output script
-  // hex encoded.
-  map<string, bytes> output_blinding_key = 8;
 }
 
 message SwapAccept {
@@ -53,14 +46,6 @@ message SwapAccept {
   // The partial signed transaction base64 encoded containing the Responder's
   // signed inputs in a PSET format
   string transaction = 3;
-  // In case of a confidential transaction the blinding key of each confidential
-  // input is included. Each blinding key is identified by the prevout script
-  // hex encoded.
-  map<string, bytes> input_blinding_key = 4;
-  // In case of a confidential transaction the blinding key of each confidential
-  // output is included. Each blinding key is identified by the output script
-  // hex encoded.
-  map<string, bytes> output_blinding_key = 5;
 }
 
 message SwapComplete {

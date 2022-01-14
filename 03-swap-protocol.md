@@ -34,7 +34,7 @@ message SwapRequest {
   uint64 amount_r = 4;
   // The responder's asset hash
   string asset_r = 5;
-  // The proposer's unsigned transaction in PSET format (base64 string)
+  // The proposer's unsigned transaction in PSET v2 format (base64 string)
   string transaction = 6;
 }
 
@@ -44,7 +44,7 @@ message SwapAccept {
   // indetifier of the SwapRequest message
   string request_id = 2;
   // The partial signed transaction base64 encoded containing the Responder's
-  // signed inputs in a PSET format
+  // signed inputs in a PSET v2 format
   string transaction = 3;
 }
 
@@ -54,7 +54,7 @@ message SwapComplete {
   // indetifier of the SwapAccept message
   string accept_id = 2;
   // The signed transaction base64 encoded containing the Proposers's signed
-  // inputs in a PSET format
+  // inputs in a PSET v2 format
   string transaction = 3;
 }
 

@@ -76,7 +76,7 @@ message ListMarketsRequest {}
 message ListMarketsResponse { repeated MarketWithFee markets = 1; }
 
 message GetMarketBalanceRequest { Market market = 1; }
-message GetMarketBalanceResponse { repeated BalanceWithFee balances = 1; }
+message GetMarketBalanceResponse { BalanceWithFee balances = 1; }
 
 message PreviewTradeRequest {
   Market market = 1;
@@ -84,7 +84,7 @@ message PreviewTradeRequest {
   uint64 amount = 3;
   string asset = 4;
 }
-message PreviewTradeResponse { repeated Preview preview = 1; }
+message PreviewTradeResponse { Preview preview = 1; }
 
 message ProposeTradeRequest {
   Market market = 1;

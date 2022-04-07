@@ -35,35 +35,32 @@ A **trader** connects to the provider using the [secure transport defined in the
 
 ```protobuf
 syntax = "proto3";
-import "google/api/annotations.proto";
 
-service Trade {
-  rpc Markets(MarketsRequest) returns (MarketsReply) {
+service TradeService {
+  rpc ListMarkets(ListMarketsRequest) returns (ListMarketsResponse) {
     option (google.api.http) = {
       get: "/v1/markets"
     };
   }
-  rpc Balances(BalancesRequest) returns (BalancesReply) {
+  rpc GetMarketBalance(GetMarketBalanceRequest) returns (GetMarketBalanceResponse) {
     option (google.api.http) = {
       post: "/v1/market/balance"
       body: "*"
     };
   }
-  rpc MarketPrice(MarketPriceRequest) returns (MarketPriceReply) {
+  rpc PreviewTrade(PreviewTradeRequest) returns (PreviewTradeResponse) {
     option (google.api.http) = {
-      post: "/v1/market/price"
+      post: "/v1/market/preview"
       body: "*"
     };
   }
-  rpc TradePropose(TradeProposeRequest) returns (stream TradeProposeReply);
-  rpc TradeComplete(TradeCompleteRequest) returns (stream TradeCompleteReply);
-  rpc ProposeTrade(ProposeTradeRequest) returns (ProposeTradeReply) {
+  rpc ProposeTrade(ProposeTradeRequest) returns (ProposeTradeResponse) {
     option (google.api.http) = {
       post: "/v1/trade/propose"
       body: "*"
     };
   }
-  rpc CompleteTrade(CompleteTradeRequest) returns (CompleteTradeReply) {
+  rpc CompleteTrade(CompleteTradeRequest) returns (CompleteTradeResponse) {
     option (google.api.http) = {
       post: "/v1/trade/complete"
       body: "*"
@@ -75,46 +72,26 @@ service Trade {
 * Messages 
 
 ```protobuf
-message MarketsRequest {}
-message MarketsReply { repeated MarketWithFee markets = 1; }
+message ListMarketsRequest {}
+message ListMarketsResponse { repeated MarketWithFee markets = 1; }
 
-message BalancesRequest { Market market = 1; }
-message BalancesReply { repeated BalanceWithFee balances = 1; }
+message GetMarketBalanceRequest { Market market = 1; }
+message GetMarketBalanceResponse { repeated BalanceWithFee balances = 1; }
 
-message MarketPriceRequest {
+message PreviewTradeRequest {
   Market market = 1;
   TradeType type = 2;
   uint64 amount = 3;
   string asset = 4;
 }
-message MarketPriceReply { repeated PriceWithFee prices = 1; }
-
-message TradeProposeRequest {
-  Market market = 1;
-  TradeType type = 2;
-  SwapRequest swap_request = 3;
-}
-message TradeProposeReply {
-  SwapAccept swap_accept = 1;
-  SwapFail swap_fail = 2;
-  uint64 expiry_time_unix = 3;
-}
-
-message TradeCompleteRequest {
-  SwapComplete swap_complete = 1;
-  SwapFail swap_fail = 2;
-}
-message TradeCompleteReply {
-  string txid = 1;
-  SwapFail swap_fail = 2;
-}
+message PreviewTradeResponse { repeated Preview preview = 1; }
 
 message ProposeTradeRequest {
   Market market = 1;
   TradeType type = 2;
   SwapRequest swap_request = 3;
 }
-message ProposeTradeReply {
+message ProposeTradeResponse {
   SwapAccept swap_accept = 1;
   SwapFail swap_fail = 2;
   uint64 expiry_time_unix = 3;
@@ -124,7 +101,7 @@ message CompleteTradeRequest {
   SwapComplete swap_complete = 1;
   SwapFail swap_fail = 2;
 }
-message CompleteTradeReply {
+message CompleteTradeResponse {
   string txid = 1;
   SwapFail swap_fail = 2;
 }
@@ -134,8 +111,8 @@ message CompleteTradeReply {
 
 ```protobuf
 enum TradeType {
-  BUY = 0;
-  SELL = 1;
+  TRADE_TYPE_BUY = 0;
+  TRADE_TYPE_SELL = 1;
 }
 message Fee {
   int64 basis_point = 1;
@@ -165,7 +142,7 @@ message Price {
   float base_price = 1;
   float quote_price = 2;
 }
-message PriceWithFee {
+message Preview {
   Price price = 1;
   Fee fee = 2;
   uint64 amount = 3;

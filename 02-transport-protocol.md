@@ -21,12 +21,11 @@ A liquidity provider can accept requests of different content types but **MUST**
 * Service interface
 	```protobuf
 	syntax = "proto3";
-	import "google/api/annotations.proto";
 
-	service Transport {
-		rpc SupportedContentTypes(SupportedContentTypesRequest) returns (SupportedContentTypesReply) {
+	service TransportService {
+		rpc SupportedContentTypes(SupportedContentTypesRequest) returns (SupportedContentTypesResponse) {
 			option (google.api.http) = {
-				get: "/v1/supported_types"
+				get: "/v1/transport"
 			};
 		}
 	}
@@ -35,14 +34,14 @@ A liquidity provider can accept requests of different content types but **MUST**
 * Messages
   ```protobuf
 	enum ContentType {
-		JSON = 0;
-		GRPC = 1;
-		GRPCWEB = 2;
-		GRPCWEBTEXT = 3;
+		CONTENT_TYPE_JSON = 0;
+		CONTENT_TYPE_GRPC = 1;
+		CONTENT_TYPE_GRPCWEB = 2;
+		CONTENT_TYPE_GRPCWEBTEXT = 3;
 	}
 
 	message SupportedContentTypesRequest {}
-	message SupportedContentTypesReply {
+	message SupportedContentTypesResponse {
 		repeated ContentType accepted_types = 1;
 	}
 	```

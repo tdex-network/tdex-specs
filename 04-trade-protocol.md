@@ -39,7 +39,7 @@ syntax = "proto3";
 service TradeService {
   rpc ListMarkets(ListMarketsRequest) returns (ListMarketsResponse) {
     option (google.api.http) = {
-      get: "/v1/markets"
+      post: "/v1/markets"
     };
   }
   rpc GetMarketBalance(GetMarketBalanceRequest) returns (GetMarketBalanceResponse) {

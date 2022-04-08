@@ -84,7 +84,7 @@ message PreviewTradeRequest {
   uint64 amount = 3;
   string asset = 4;
 }
-message PreviewTradeResponse { Preview preview = 1; }
+message PreviewTradeResponse { repeated Preview previews = 1; }
 
 message ProposeTradeRequest {
   Market market = 1;
